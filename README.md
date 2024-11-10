@@ -1,4 +1,4 @@
-#ENSAR Courses
+#ENSAR Courses.
 Ce repertoire concerne le cours de programmation et de traitement de données avec RStudio et Python. 
 Dans un premier temps, il consiste à découvrir des outils comme RStudio et Python  pour la création de tableaux de données, l'importation et l'exportation, Manipulation, exploration et Visualisation des données  et mise en oeuvre. Les principaux concepts abordés vont de la création de vecteurs, matrices à la manipulation et exploration des data frames et listes bases pratiques et utile à la data science.
 
