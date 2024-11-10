@@ -1,0 +1,368 @@
+---
+title: "TP-ENSAR-R"
+author: "Solym Manou-Abi"
+date: "2024-09-22"
+output:
+  html_document: default
+  word_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+\section{ Partie 1 : Création et manipulation de vecteurs, matrices, Importation et exportation des données}
+## Partie 1 : Création et manipulation de vecteurs et matrices. 
+
+
+#Creation de vecteur et de matrices
+#Les commentaires apparaissent après le symbole #
+#La compilation se fait de plusieurs manières:
+- Soit avec la petite flêche verte au sein de la cellule (Run current chunk qui signifie, complilation de la cellule)
+-Soit aen haut à droite avec l'icone Run, vous pouvez sélectionner par exemple Run Current Chunk 
+# La fonction c() pour créer un vecteur de valeurs séparées par des virgules comme l'exemple suivant
+#Attention c'est avec un petit c
+```{r}
+##Création d’un vecteur à  la main
+y=c(1,2,3,4)
+```
+
+##Pour afficher vos valeurs faite appel à y et complier avec la flêche en vert à droite 
+```{r}
+#pour afficher
+y 
+```
+
+# Si un message d'erreur appariat du style Error: object 'y' not found, cela signifie que vous avez oublié de compiler le code
+
+
+```{r}
+#On peut aussi créer un vecteur de caractères
+a <- c("A","B","C")
+a #pour afficher
+```
+
+# Création d’un vecteur en utilisant des séquences ou des répétitions avec les fonctions rep et seq
+
+```{r}
+# rep(a,n) : replique la valeur de a au total n fois
+x1 <- rep(1,4) 
+x1
+```
+```{r}
+# seq(a,b,h) : affiche une suite de valeur allant de a à b de pas h
+y1<-seq(1,2,0.25)
+y1 # seq : sequence de pas donné
+```
+
+# La fonction seq peut aussi s'écrire de la manière suivante
+```{r}
+#seq(a,b,length=l) crée un vecteur allant de a à b de longueur l
+y2 = seq(1,2,length=20) # il faut lui specifier la longueur avec length
+y2 # sequence de longueur donné
+```
+
+#Vecteurs booleans
+#Les opérations logiques définies via <, <=, >, >=, == (test d'égalité), ! = (différent) renvoient TRUE ou FALSE ;
+```{r}
+x=1:8 #une autre manière de créer une suite de valeurs consecutives de 1 à 3.
+y=seq(1,5,0.5) # rappel vecteur allant de 0 à 2 de pas 0.5
+#Si vous voulez affichez "y" il faut le saisir et compilé de nouveau
+```
+
+#Pour connaitre la longueur d'un vecteur
+
+```{r}
+length(y) #affiche la longueur du vecteur y
+length(x)
+```
+
+#Pour tester les valeurs de x qui sont supérieur ou égale à y
+```{r}
+x>=y
+#le résultat est une suite de TRUE (Vrai) ET FASLE (Fauc)
+```
+
+#Accéder aux composantes d’un vecteur : utilisation de [ ]
+```{r}
+## Créer les vecteurs suivants
+y=c(6,9,10)
+a=c("A","B","C")
+```
+
+```{r}
+y[1]# Pour afficher la première valeur de y
+a[2] # Pour afficher la première valeur de y
+y[c(1,3)] # Pour afficher à la fois la première et troisième valeur de y
+y[-1] # Pour afficher toutes les valeurs sauf la première valeur
+y[y>8] # Afficher les valeurs de y qui sont supérieurs à 8
+y[y==9] # Afficher les valeurs qui sont égales à 9
+#Attention le test d'égalité se fait avec deux fois le symbole =
+a[c(TRUE,TRUE,FALSE)] # Affihe le premier et le second caractère
+```
+
+
+##Création de matrices
+#Methode 1 : par "collage" de vecteurs lignes ou colonnes
+```{r}
+#Creation des vecteur
+A<-1:4 #idem A<- c(1,2,3,4)
+B<- seq(5,8) #idem B=c(5,6,7,8)
+C<- c(9,10,11,12)
+length(A)
+length(B)
+```
+
+# collage des colonnes col
+```{r}
+M1 <-cbind(A,B,C)
+M1
+```
+
+# # collage des lignes (row)
+```{r}
+M2 <-rbind(A,B,C)
+M2
+```
+
+#Pour connaitre la dimension d'une matrice
+
+```{r}
+dim(M1) #Affiche le nombre de lignes et de colonnes
+```
+
+#Remarque : Les fonctions cbind() et rbind() permettent de fusionner des vecteurs, des matrices, des tableaux individus-variables (appelés dataframe, un objet R qu’on manipulera à la prochaine séance) 
+
+Creation de matrices avec la fonction matrix 
+
+```{r}
+ #remplissage par colonnes
+M1 <-matrix(1:12,nrow=3)
+M1
+```
+
+```{r}
+# rajouter byrow=TRUE pour remplissage par ligne
+M2 <-matrix(1:12,nrow=3,byrow=T)
+M2
+##Attention : Si la dimension du vecteur utilisé pour la construction de la matrice n’est pas égale à ncol × nrow, alors ce sera une construction par complétion tant que nécessaire !
+```
+
+
+
+#Extraire d’une matrice une sous-matrice particulière
+
+```{r}
+M1[2,] # extraire toute la ligne 2
+```
+
+```{r}
+ #extraire les colonnes 2 et 3
+M1[,c(2,3)]
+```
+
+# Appliquer une fonction sur toutes lignes ou colonnes d'une matrice
+```{r}
+apply(M1,1,sum) # somme (sur colonnes) à lignes fixées
+apply(M1,2,sum) # somme (sur lignes) à colonnes fixées
+```
+
+
+```{r}
+# min à colonnes fixées
+apply(M1,2,min) 
+```
+
+#Tri d’un vecteur avec sort() ; order()
+
+```{r}
+x<-c(2,4,6,5,3,1) #creation d'un vecteur
+sort(x) # retourne le vecteur ordonné
+```
+
+```{r}
+order(x) # retourne le rang des composantes ordonnees de x
+```
+
+
+#Opérations sur les vecteurs ou matrices
+
+```{r}
+x<-c(1,1)
+y<-c(2,3)
+
+x+y #la somme des vecteurs
+x*y #le produit des vecteur
+```
+
+```{r}
+3*M1 #le produit de la matrice précédemment nommée M1 avec la valeur 3
+#M1%*%M2 # Le produit matriciel se fait avec l'operation %*%
+```
+
+```{r}
+#valeurs propres si matrice carrée
+M=matrix(c(1,0,0,0,1,0,0,0,1),nrow=3,ncol=3)
+eigen(M) # Retourne les valeurs et vecteurs propres de M
+solve(M) # inverse s'il existe, ici déterminant proche de 0 donc problème
+t(M1) # transposee de M1
+det(M)# Determinant de M
+A=M^2 #matrixe au carré
+B=c(0,0,0)
+solve(A,B) # solution de Ax=B
+```
+
+
+##Opérateurs logiques ; fonction which pour rechercher les positions (indices) des éléments
+
+▶  La fonction which() permet de récupérer les indices descomposantes vérifiant une propriété donnée ;
+▶ Les fonctions which.min() ou which.max() renvoient l’indice
+de la composante min ou max du vecteur
+
+```{r}
+#Creation de vecteurs
+x=c(1,2,4)
+y=c(1,3,2)
+which(y==3)#renvoie l'indice ou la position de la valeur égale à 3
+which(y>1) # renvoie les indices des valeurs plus grand que 1
+```
+
+## Extraction sous condition
+
+```{r}
+y[y>2] # extraction des valeurs de y plus grands que 2
+x[x==1] #extraction des valeurs de x égales à 1
+```
+
+▶ Exercice TP
+
+#1. Créer deux vecteurs poids et taille de composantes 
+#(60, 72, 57, 90, 95, 72) et (1.75, 1.80, 1.65, 1.5, 1.74, 1.91).
+#2. Calculer bmi = poids/taille 2
+#3. Quelle est la valeur max de bmi ?
+#4. Quel est l’indice de la composante du vecteur bmi correspondant au min des bmi ?
+#5. Créer un vecteur ayant seulement les composantes > 20 de bmi. Combien a-t-il d’éléments ?
+#6. Créer une matrice de type individus × variables avec les variables poids, taille et bmi.
+#7. Ordonner le tableau de données obtenu selon les valeurs de bmi.
+#8. Calculer le poids moyen et la taille moyenne.
+
+
+\section{Lecture de divers fichiers de données}
+
+##Importation de la bse Prof à télécharger sur UPdago 
+#ou sur ma page web ou sur ma page Github (Repositoire nommé Data_access)
+
+#Lire un fichier .txt : fonction read.table (qui crée un data.frame)
+
+▶Si la première ligne du fichier contient le nom des variables,
+▶ l’option Header=T (true) doit être utilisée sinon F (false)
+
+▶ Connection des bases :
+# ▶ Mettez les bases et le fichier de codes R ici .Rmd (car Rstudio) dans un meme fichier par exempke
+# ▶ Ensuite Session puis Set Working Directory (Chargement du repertoire courant) puis To Source File location (source)
+▶ La commande précédente suppose que le fichier  est dans le répertoire courant (répertoire de travail de la session R en cours) 
+# ▶ On peut vérifier dans le cas contraire, le chemin (lieu déposé) pour accéder au fichier .
+
+# La commande getwd() permet de connaître son reportoire courant # La commande setwd() de fixer son repertoire courant à spécifier entre les parenthèse
+#Exemple 
+
+```{r}
+setwd("/Users/solym/Desktop/TP-ENSAR")
+```
+
+
+```{r}
+##Lecture d'une base au format /.txt
+Base1=read.table("RGPH_MLI.txt",header=T)
+##Visualisation de la bse
+View(Base1) 
+#Apercu de quelques lignes et quelques colonnes de la base
+head(Base1)
+```
+
+#Extraction des colonnes
+```{r}
+Base1$Y # Extraction du vecteur des valeurs de la colonne Y
+Base1$X1 # Extraction du vecteur des valeurs de la colonne X1
+```
+
+
+##On peut aussi charger  une base de données depuis Rstudio en allant dans File (Fichiers) ensuite Import Data set (Importation)
+
+#Après l'avoir importer vous pouvez modifier le nom de la abse 
+```{r}
+base=nom_importer
+attach(base)
+```
+
+▶ Les fonctions R attach() . . .detach( ) peuvent être ensuite utilisées pour travailler directement sur les dataframe créés.
+
+## Lecture de fichier de données .csv : la fonction read.csv( )
+
+
+
+#Parmi les options disponibles, on citera notamment :
+
+▶ header : indique si la première ligne du fichier contient les noms des variables (valeur TRUE) ou non (valeur FALSE) 
+▶ sep indique le caractère séparant les champs. En général soit une virgule, soit un point-virgule, soit une tabulation.
+
+▶ dec indique quel est le caractère utilisé pour séparer les nombres et leurs décimales. Il s’agit le plus souvent de la virgule lorsque les données sont en français et le point pour les données anglophones.
+
+```{r}
+#Importation de la base RGPHMLI au format csv
+Base2=read.csv("RGPHMLI.csv",sep=" ;",header = T)
+View(Base2)
+```
+
+#Importation de fichiers Excel
+Excel est l’un des tableurs les plus populaires. Il est difficile de l’exclure du workflow du Data officer
+
+```{r}
+#Le package xlsx offre deux fonctions majeures pour la lecture des formats xls et xlsx. Il s’agit de read.xlsx et read.xlsx2 (plus rapide sur les fichiers lourds).
+#Chargement du package "xlsx" avec library(xlsx).
+library(xlsx)
+```
+
+```{r}
+Base3= read.xlsx("RGPHMLI.xlsx",sheetIndex = 1,startRow = 2,header = TRUE)
+```
+
+#sheetIndex : indique le numéro de l'onglet à importer
+#startRow = 1: déclare la première ligne comme nom de colone, équivalent de header =T
+
+
+\section{Exporter des données}
+
+R propose également différentes fonctions permettant d’exporter des données vers des formats variés.
+
+
+▶ write.table est l’équivalent de read.table permettant d’enregistrer des tableaux de données au format texte, avec de nombreuses options.
+
+▶ 
+```{r}
+#Data est la base que vous voulez exporter.
+#Data_export.csv est la base exportée (apparaissant par défaut dans votre repertoire courant)
+write_csv(Data,file="Data_export.csv") 
+```
+
+#Importation depuis Internet
+Les données peuvent aussi être tirées de la toile mondiale. Les outils disponibles dans R varient selon le type de données
+
+▶ ▶ ▶
+
+Pour un fichier .csv, le chargement dans l’environnement R se fait de la même façon que pour des fichiers locaux.
+
+Si url désigne le lien web de sauvegarde de votre base de données alors
+```{r}
+Base=read.csv2(url,sep = " ;", header = T) 
+#est la commande pour importer la base en question directement par son lien web
+```
+
+
+```{r}
+url <-"https://jhub.appli.univ-poitiers.fr/hub/user-redirect/lab/tree/Data/RGPH_MLI.xlsx"
+Base_online <- read_excel(url)
+View(Base_online)
+```
+
+
